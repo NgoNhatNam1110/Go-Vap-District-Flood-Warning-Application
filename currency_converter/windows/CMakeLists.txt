@@ -6,6 +6,19 @@ project(currency_converter LANGUAGES CXX)
 # the on-disk name of your application.
 set(BINARY_NAME "currency_converter")
 
+# Set CMAKE policy to handle dependencies with older CMake requirements (e.g., Firebase SDK)
+set(CMAKE_POLICY_DEFAULT_CMP0048 NEW)
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
+# Allow CMake to process dependencies with cmake_minimum_required(VERSION 3.1)
+# This is needed for Firebase C++ SDK
+if(POLICY CMP0089)
+  cmake_policy(SET CMP0089 NEW)
+endif()
+set(CMAKE_MINIMUM_REQUIRED_VERSION 3.5)
+
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(VERSION 3.14...3.25)

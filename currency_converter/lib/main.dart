@@ -1,21 +1,39 @@
-import 'package:currency_converter/pages/map.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:currency_converter/pages/authen.dart';
+import 'package:currency_converter/core/service_locator.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  // Đảm bảo Flutter bindings được khởi tạo
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Khởi tạo Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Setup Dependency Injection
+  await setupServiceLocator();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Poppins'),
-      home: const HomePage(),
+      title: 'Cảnh báo lũ lụt Gò Vấp',
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        useMaterial3: true,
+        primarySwatch: Colors.blue,
+      ),
+      home: const AuthenPage(),
     );
-    
   }
 }
+
